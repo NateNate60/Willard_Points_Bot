@@ -260,7 +260,7 @@ while True :
                                 award = post.score // 20 + 3
                             elif tier == "BLACKMAILER" :
                                 award = post.score // 20 + 5
-                            elif tier == "BLACKMAILER" :
+                            elif tier == "CONSIGLIERE" :
                                 award = post.score // 20 + 10
                             elif tier == "GODFATHER" :
                                 award = 100
@@ -284,7 +284,7 @@ while True :
                                 award = post.score // 20 + 3
                             elif tier == "BLACKMAILER" :
                                 award = post.score // 20 + 5
-                            elif tier == "BLACKMAILER" :
+                            elif tier == "CONSIGLIERE" :
                                 award = post.score // 20 + 10
                             elif tier == "GODFATHER" :
                                 award = 100
