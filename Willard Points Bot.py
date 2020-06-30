@@ -178,16 +178,23 @@ while True :
                             #Balance checking
                             elif "!bal" in message.body :
                                 payload = message.body.split(" ")
-                                if len(payload) != 2 :
+                                if len(payload) < 2 :
                                     message.reply ('Invalid syntax. Try !balance [username]')
                                 else :
+                                    if len(payload) == 1 :
+                                        payload.append(message.author.name)
                                     if os.path.isfile(payload[1] + ".txt") :
                                         with open (payload[1] + ".txt", 'r') as acc :
                                             bal = acc.read()
-                                        message.reply("That account currently has " + bal + " Willard Points." + signature)
+                                        if payload[1] == message.author.name :
+                                            message.reply("Your account currently has " + bal + " Willard Points." + signature)
+                                        else :
+                                            message.reply("That account currently has " + bal + " Willard Points." + signature)
                                     else :
                                         message.reply ("That account does not exist. Use !newaccount" + signature)
-
+                            elif "!log" in message.body :
+                                with open("log.txt",'r') as log :
+                                    message.reply(log.read() + signature)
                             # Transferring
                             elif "!trans" in message.body :
                                 print ('Detected transfer request.')
@@ -271,7 +278,7 @@ while True :
                                 auth.write(str(bal))
                             print(time + ": " + str(post.author) + " gained " + str(award) + " WP.")
                             with open('log.txt','a') as log :
-                                log.write(time + " " + str(post.author) + " gained " + str(award) + " WP.")
+                                log.write('\n' + time + " " + str(post.author) + " gained " + str(award) + " WP.")
                             post.reply ("Hello. Thank you for you wonderful post to our subreddit. I am the bot (that you subscribed to) that awards Willard Points to good posts. I am pleased"+
                                         " to inform you that your post has reached the " + tier + " tier. As such, I am awarding you " + str(award) + " Willard Points for this post. I will update" +
                                         " you if you earn more Willard Points. I check the top 12 posts ever six hours. Pinned posts are unfortunately not eligible. You've got " + str(bal) + " WP now.")
@@ -296,7 +303,7 @@ while True :
                                     auth.write(str(bal))
                                 print(time + ": " + str(post.author) + " gained " + str(award) + " WP.")
                                 with open('log.txt','a') as log :
-                                    log.write(time + " " + str(post.author) + " gained " + str(award) + " WP.")
+                                    log.write('\n' + time + " " + str(post.author) + " gained " + str(award) + " WP.")
                                 for cmt in post.comments :
                                     if cmt.author == r.user.me() and "that you subscribed to" in cmt.body :
                                         oldbody = cmt.body
